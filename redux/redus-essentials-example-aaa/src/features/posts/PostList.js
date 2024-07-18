@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { PostAuthor } from './PostAuthor'
 import { TimeAgo } from './TimeAgo'
+import { ReactionButtons } from './ReactionButtons'
 
 export const PostsList = () => {
   const posts = useSelector((state) => state.posts)
@@ -18,6 +19,7 @@ export const PostsList = () => {
       <Link to={`/posts/${post.id}`} className="button muted-button">
         View Post
       </Link>
+      <ReactionButtons post={post} />
     </article>
   ))
 
