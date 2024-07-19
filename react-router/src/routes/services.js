@@ -9,7 +9,7 @@ export async function rootLoader() {
 
 export async function rootAction() {
   const contact = await createContact();
-  return { contact };
+  return redirect(`/contacts/${contact.id}/edit`);
 }
 
 export async function contactLoader({ params }) {
