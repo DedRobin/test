@@ -1,4 +1,10 @@
-import { getContacts, createContact, getContact, updateContact, deleteContact } from "../contacts";
+import {
+  getContacts,
+  createContact,
+  getContact,
+  updateContact,
+  deleteContact,
+} from "../contacts";
 import { redirect } from "react-router-dom";
 
 export async function rootLoader({ request }) {
@@ -15,6 +21,12 @@ export async function rootAction() {
 
 export async function contactLoader({ params }) {
   const contact = await getContact(params.contactId);
+  if (!contact) {
+    throw new Response("", {
+      status: 404,
+      statusText: "Not found",
+    });
+  }
   return { contact };
 }
 

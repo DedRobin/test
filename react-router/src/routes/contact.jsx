@@ -6,7 +6,13 @@ export default function Contact() {
   return (
     <div id="contact">
       <div>
-        <img key={contact.avatar} src={contact.avatar || `https://robohash.org/${contact.id}.png?size=200x200`} />
+        <img
+          key={contact.avatar}
+          src={
+            contact.avatar ||
+            `https://robohash.org/${contact.id}.png?size=200x200`
+          }
+        />
       </div>
 
       <div>
@@ -54,7 +60,10 @@ export default function Contact() {
 
 function Favorite({ contact }) {
   const fetcher = useFetcher();
-  const favorite = contact.favorite;
+  const favorite = fetcher.formData
+    ? fetcher.formData.get("favorite") === true
+    : contact.favorite;
+
   return (
     <fetcher.Form method="post">
       <button
