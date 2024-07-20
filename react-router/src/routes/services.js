@@ -1,5 +1,4 @@
-import { getContacts, createContact, getContact } from "../contacts";
-import { updateContact, deleteContact } from "../contacts";
+import { getContacts, createContact, getContact, updateContact, deleteContact } from "../contacts";
 import { redirect } from "react-router-dom";
 
 export async function rootLoader({ request }) {
@@ -17,6 +16,13 @@ export async function rootAction() {
 export async function contactLoader({ params }) {
   const contact = await getContact(params.contactId);
   return { contact };
+}
+
+export async function contactAction({ request, params }) {
+  const formData = await request.formData();
+  return updateContact(params.contactId, {
+    favorite: formData.get("favorite") === "true",
+  });
 }
 
 export async function editAction({ request, params }) {
