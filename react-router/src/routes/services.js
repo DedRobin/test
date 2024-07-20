@@ -2,9 +2,11 @@ import { getContacts, createContact, getContact } from "../contacts";
 import { updateContact, deleteContact } from "../contacts";
 import { redirect } from "react-router-dom";
 
-export async function rootLoader() {
-  const contacts = await getContacts();
-  return { contacts };
+export async function rootLoader({ request }) {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q");
+  const contacts = await getContacts(q);
+  return { contacts, q };
 }
 
 export async function rootAction() {
@@ -24,8 +26,8 @@ export async function editAction({ request, params }) {
   return redirect(`/contacts/${params.contactId}`);
 }
 
-
 export async function destroyAction({ params }) {
+  throw new Error("oh dang!");
   await deleteContact(params.contactId);
   return redirect("/");
 }

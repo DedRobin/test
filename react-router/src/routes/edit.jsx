@@ -1,26 +1,15 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useLoaderData, useNavigate } from "react-router-dom";
 
 export default function EditContact() {
   const { contact } = useLoaderData();
+  const navigate = useNavigate();
 
   return (
     <Form method="post" id="contact-form">
       <p>
         <span>Name</span>
-        <input
-          placeholder="First"
-          aria-label="First name"
-          type="text"
-          name="first"
-          defaultValue={contact?.first}
-        />
-        <input
-          placeholder="Last"
-          aria-label="Last name"
-          type="text"
-          name="last"
-          defaultValue={contact?.last}
-        />
+        <input placeholder="First" aria-label="First name" type="text" name="first" defaultValue={contact?.first} />
+        <input placeholder="Last" aria-label="Last name" type="text" name="last" defaultValue={contact?.last} />
       </p>
       <label>
         <span>Twitter</span>
@@ -42,7 +31,14 @@ export default function EditContact() {
       </label>
       <p>
         <button type="submit">Save</button>
-        <button type="button">Cancel</button>
+        <button
+          type="button"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          Cancel
+        </button>
       </p>
     </Form>
   );

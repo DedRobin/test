@@ -1,19 +1,35 @@
-import { Outlet, useLoaderData, Form, NavLink, useNavigation } from "react-router-dom";
+import { Outlet, useLoaderData, Form, NavLink, useNavigation, useSubmit } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Root() {
-  const { contacts } = useLoaderData();
+  const { contacts, q } = useLoaderData();
   const navigation = useNavigation();
+  const submit = useSubmit();
+
+  useEffect(() => {
+    document.getElementById("q").value = q;
+  }, [q]);
 
   return (
     <>
       <div id="sidebar">
         <h1>React Router Contacts</h1>
         <div>
-          <form id="search-form" role="search">
-            <input id="q" aria-label="Search contacts" placeholder="Search" type="search" name="q" />
+          <Form id="search-form" role="search">
+            <input
+              id="q"
+              aria-label="Search contacts"
+              placeholder="Search"
+              type="search"
+              name="q"
+              defaultValue={q}
+              onChange={(e) => {
+                submit(e.currentTarget.form);
+              }}
+            />
             <div id="search-spinner" aria-hidden hidden={true} />
             <div className="sr-only" aria-live="polite"></div>
-          </form>
+          </Form>
           <Form method="post">
             <button type="submit">New</button>
           </Form>
