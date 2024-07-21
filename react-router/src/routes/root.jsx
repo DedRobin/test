@@ -1,11 +1,17 @@
-import { Outlet, useLoaderData, Form, NavLink, useNavigation, useSubmit } from "react-router-dom";
+import {
+  Outlet,
+  useLoaderData,
+  Form,
+  NavLink,
+  useNavigation,
+  useSubmit,
+} from "react-router-dom";
 import { useEffect } from "react";
 
 export default function Root() {
   const { contacts, q } = useLoaderData();
   const navigation = useNavigation();
   const submit = useSubmit();
-
   const searching = navigation.location;
 
   useEffect(() => {
@@ -47,7 +53,9 @@ export default function Root() {
                 <li key={contact.id}>
                   <NavLink
                     to={`contacts/${contact.id}`}
-                    className={({ isActive, isPending }) => (isActive ? "active" : isPending ? "pending" : "")}
+                    className={({ isActive, isPending }) =>
+                      isActive ? "active" : isPending ? "pending" : ""
+                    }
                   >
                     {contact.first || contact.last ? (
                       <>
@@ -68,7 +76,10 @@ export default function Root() {
           )}
         </nav>
       </div>
-      <div id="detail" className={navigation.state === "loading" ? "loading" : ""}>
+      <div
+        id="detail"
+        className={navigation.state === "loading" ? "loading" : ""}
+      >
         <Outlet />
       </div>
     </>

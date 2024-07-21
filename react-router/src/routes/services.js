@@ -15,6 +15,7 @@ export async function rootLoader({ request }) {
 }
 
 export async function rootAction() {
+  // debugger
   const contact = await createContact();
   return redirect(`/contacts/${contact.id}/edit`);
 }
