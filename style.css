@@ -1,0 +1,36 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100vh;
+}
+
+main {
+  height: 100%;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+.container-wrapper {
+  display: flex;
+  justify-content: stretch;
+  height: 100%;
+  gap: 20px;
+}
+
+.tasks-list {
+  width: 30%;
+  min-width: 200px;
+}
+
+.task {
+  flex-grow: 1;
+}
