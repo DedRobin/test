@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import type { IApi } from '@svar-ui/react-gantt';
+import { useEffect, useRef, useState, type KeyboardEventHandler } from 'react';
+import type { IApi, ITask } from '@svar-ui/react-gantt';
 import {
   Gantt,
   WillowDark,
@@ -9,15 +9,14 @@ import {
 } from '@svar-ui/react-gantt';
 import '@svar-ui/react-gantt/all.css';
 
-const tasks = [
+const tasks: ITask[] = [
   {
     id: 1,
     text: 'Task 1',
-    start: new Date(2024, 0, 1),
-    end: new Date(2024, 0, 10),
+    start: new Date(2024, 0, 3),
+    end: new Date(2024, 0, 20),
     progress: 50,
     type: 'task',
-    // open: true,
   },
   {
     id: 2,
@@ -26,7 +25,6 @@ const tasks = [
     end: new Date(2024, 0, 25),
     progress: 30,
     type: 'task',
-    // parent: 1,
   },
 ];
 
@@ -45,12 +43,27 @@ const scales = [
 ];
 
 export default function GanttChart() {
-  const [api, setApi] = useState<IApi | undefined>(undefined);
+  const [api, setApi] = useState<IApi | undefined>();
 
-  useEffect(() => console.log(api), [api]);
+  const init: (api: IApi) => void = (api) => {
+    api.on('drag-task', () => {
+      console.log('dragging');
+    });
+
+    setApi(api);
+  };
+
+  const onKeyDown: KeyboardEventHandler = (event) => {
+    if (event.ctrlKey && event.key === 'z') {
+      console.log('CtrlZ');
+    }
+  };
 
   return (
-    <div style={{ height: '100%', width: '100%' }}>
+    <div
+      onKeyDown={onKeyDown}
+      style={{ height: '100%', width: '100%' }}
+    >
       <WillowDark>
         <Toolbar api={api} />
         <ContextMenu api={api}>
@@ -58,7 +71,7 @@ export default function GanttChart() {
             tasks={tasks}
             links={links}
             scales={scales}
-            init={setApi}
+            init={init}
           />
         </ContextMenu>
         {api && <Editor api={api} />}
