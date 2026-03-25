@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEventHandler } from 'react';
+import { useState, type KeyboardEventHandler } from 'react';
 import type { IApi, ITask } from '@svar-ui/react-gantt';
 import {
   Gantt,
@@ -46,6 +46,12 @@ export default function GanttChart() {
   const [api, setApi] = useState<IApi | undefined>();
 
   const init: (api: IApi) => void = (api) => {
+    api.on('add-link', () => {
+      console.log('add link');
+    });
+    api.on('copy-task', () => {
+      console.log('copy task');
+    });
     api.on('drag-task', () => {
       console.log('dragging');
     });
@@ -62,7 +68,10 @@ export default function GanttChart() {
   return (
     <div
       onKeyDown={onKeyDown}
-      style={{ height: '100%', width: '100%' }}
+      style={{
+        height: '100%',
+        width: '100%',
+      }}
     >
       <WillowDark>
         <Toolbar api={api} />
