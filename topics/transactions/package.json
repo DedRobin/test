@@ -1,0 +1,27 @@
+{
+  "name": "transactions-practice",
+  "version": "1.0.0",
+  "description": "Practice environment for database transactions with SQLite",
+  "type": "commonjs",
+  "scripts": {
+    "setup": "node setup.js",
+    "demo:basic": "node examples/01-basic-transaction.js",
+    "demo:rollback": "node examples/02-rollback.js",
+    "demo:savepoint": "node examples/03-savepoint.js",
+    "demo:isolation": "node examples/04-isolation.js",
+    "demo:errors": "node examples/05-error-simulation.js",
+    "demo:manual-errors": "node examples/06-manual-error-emulation.js",
+    "demo:all": "node examples/all.js"
+  },
+  "keywords": [
+    "database",
+    "transactions",
+    "sqlite"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "sql.js": "^1.15.0"
+  }
+}
